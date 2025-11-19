@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4 text-center">Election Results</h2>
+{% if winner %}
+<p class="text-center"><strong>Winner: {{ winner }}</strong></p>
+{% else %}
+<p class="text-center"><strong>No votes have been cast yet.</strong></p>
+{% endif %}
+<table class="table table-striped table-bordered">  
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Candidate</th>
+            <th scope="col">Votes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for candidate, votes in results.items() %}
+        <tr>
+            <td>{{ candidate }}</td>
+            <td>{{ votes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

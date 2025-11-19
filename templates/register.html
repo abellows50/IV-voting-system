@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {% if not voter %}
+                <h3 class="card-title mb-4 text-center">Register</h3>
+                <form method="POST" action="{{ url_for('register') }}">
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="huid" class="form-label">HUID</label>
+                        <input type="text" class="form-control" id="huid" name="huid" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                {% else %}
+                <h3 class="card-title mb-4 text-center">Registration Successful</h3>
+                <p><strong>Note the Bellow details and save your Hashable ID securely. It will be required for voting. 
+                    <br/>
+                    <br/> 
+                    IF YOU LOSE YOUR HASHABLE ID YOU WILL NOT BE ABLE TO VOTE. <br/>
+                    In this case please contact the admin to reset your registration.
+                </strong></p>
+                <p><strong>First Name:</strong> {{ voter.firstname }}</p>
+                <p><strong>Last Name:</strong> {{ voter.lastname }}</p>
+                <p><strong>Email:</strong> {{ voter.email }}</p>
+                <p><strong>HUID:</strong> {{ voter.huid }}</p>
+                <p><strong>Hashable ID:</strong> {{ voter.hashable_id }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {% if mode == "login" %}
+                <h3 class="card-title mb-4 text-center">Voter Login</h3>
+                <form method="POST" action="{{ url_for('voter_login') }}">
+                    <div class="mb-3">
+                        <label for="hashable_id" class="form-label">Hashable ID</label>
+                        <input type="text" class="form-control" id="hashable_id" name="hashable_id" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                {% elif success %}
+                <h3 class="card-title mb-4 text-center">Vote Submitted Successfully</h3>
+                <p class="text-center">Thank you for voting!</p>
+                {% elif error %}
+                <h3 class="card-title mb-4 text-center">Error</h3>
+                <p class="text-center text-danger">{{ error }}</p>
+                {% else %}
+                <h3 class="card-title mb-4 text-center">Cast Your Vote</h3>
+                <form method="POST" action="{{ url_for('vote', hashable_id=voter.hashable_id) }}">
+                    <div class="mb-3">
+                        <label for="candidate" class="form-label">Select Candidate</label>
+                        <select class="form-select" id="candidate" name="candidate" required>
+                            {% for candidate in candidates %}
+                            <option value="{{ candidate }}">{{ candidate }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit Vote</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>  
+
+{% endblock %}
